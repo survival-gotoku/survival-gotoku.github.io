@@ -1,0 +1,1 @@
+# survival-gotoku.github.io
