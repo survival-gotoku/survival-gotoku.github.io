@@ -507,3 +507,99 @@
 .tile-y1 {
     top: 4647px;
 }
+
+/* ========================================
+   マップ拡大縮小ボタン
+======================================== */
+
+.map-zoom-control {
+
+    position: absolute;
+
+    left: 20px;
+
+    top: 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 4px;
+
+    padding: 5px;
+
+    background:
+        var(--card);
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        10px;
+
+    box-shadow:
+        0 3px 12px rgba(0, 0, 0, 0.25);
+
+    z-index: 50;
+    
+    pointer-events: auto;
+}
+
+
+/* ========================================
+   ボタン
+======================================== */
+
+.map-zoom-control button {
+
+    width:
+        40px;
+
+    height:
+        40px;
+
+    border:
+        none;
+
+    border-radius:
+        7px;
+
+    background:
+        transparent;
+
+    color:
+        var(--text);
+
+    font-size:
+        24px;
+
+    cursor:
+        pointer;
+}
+
+
+.map-zoom-control button:hover {
+
+    background:
+        var(--background-alt);
+}
+
+
+/* ========================================
+   倍率表示
+======================================== */
+
+#zoom-level {
+
+    min-width:
+        55px;
+
+    text-align:
+        center;
+
+    color:
+        var(--text);
+
+    font-size:
+        14px;
+}
