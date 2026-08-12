@@ -1,0 +1,1299 @@
+/* ========================================
+   テーマ
+======================================== */
+
+:root {
+
+    /* ライトテーマ */
+
+    --background: #f5f7f5;
+
+    --background-alt: #eef1ee;
+
+    --text: #222222;
+
+    --subtext: #666666;
+
+    --navbar: rgba(255, 255, 255, 0.94);
+
+    --card: #ffffff;
+
+    --border: #e2e5e2;
+
+    --accent: #4caf50;
+
+    --accent-hover: #43a047;
+
+    --secondary-background: #ffffff;
+
+    --secondary-hover: #f0f2f0;
+
+    --footer: #e4e8e4;
+
+}
+
+
+/* ========================================
+   ダークテーマ
+======================================== */
+
+@media (prefers-color-scheme: dark) {
+
+    :root {
+
+        --background: #242424;
+
+        --background-alt: #2a2a2a;
+
+        --text: #ffffff;
+
+        --subtext: #d0d0d0;
+
+        --navbar: rgba(45, 45, 45, 0.95);
+
+        --card: #303030;
+
+        --border: #484848;
+
+        --accent: #66bb6a;
+
+        --accent-hover: #81c784;
+
+        --secondary-background: #303030;
+
+        --secondary-hover: #3b3b3b;
+
+        --footer: #1d1d1d;
+
+    }
+
+}
+
+
+/* ========================================
+   全体
+======================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+
+    margin: 0;
+
+    font-family:
+        "Segoe UI",
+        "Noto Sans JP",
+        sans-serif;
+
+    background:
+        var(--background);
+
+    color:
+        var(--text);
+
+    transition:
+        background 0.2s,
+        color 0.2s;
+
+}
+
+
+/* ========================================
+   ナビゲーション
+======================================== */
+
+.navbar {
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+
+    height: 70px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding:
+        0 40px;
+
+    background:
+        var(--navbar);
+
+    border-bottom:
+        1px solid var(--border);
+
+    backdrop-filter:
+        blur(10px);
+
+    z-index: 1000;
+
+}
+
+
+.logo {
+
+    color:
+        var(--text);
+
+    font-size:
+        22px;
+
+    font-weight:
+        bold;
+
+    text-decoration:
+        none;
+
+    white-space:
+        nowrap;
+
+}
+
+
+.navbar nav {
+
+    display:
+        flex;
+
+    gap:
+        8px;
+
+}
+
+
+.navbar nav a {
+
+    color:
+        var(--subtext);
+
+    text-decoration:
+        none;
+
+    padding:
+        10px 14px;
+
+    border-radius:
+        7px;
+
+    transition:
+        background 0.2s,
+        color 0.2s;
+
+}
+
+
+.navbar nav a:hover {
+
+    color:
+        var(--text);
+
+    background:
+        var(--secondary-hover);
+
+}
+
+.navbar nav a.active {
+
+    color:
+        var(--text);
+
+    background:
+        var(--secondary-hover);
+
+}
+
+.nav-divider {
+    width: 1px;
+    height: 24px;
+
+    margin: 0 8px;
+
+    background: var(--border);
+
+    align-self: center;
+}
+
+
+/* ========================================
+   メイン
+======================================== */
+
+.hero {
+
+    min-height:
+        720px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    text-align:
+        center;
+
+    padding:
+        130px 25px 100px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--background),
+            var(--background-alt)
+        );
+
+}
+
+
+.hero-content {
+
+    width:
+        100%;
+
+    max-width:
+        1000px;
+
+}
+
+
+.hero h1 {
+
+    margin:
+        0;
+
+    color:
+        var(--text);
+
+    font-size:
+        clamp(48px, 8vw, 90px);
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        3px;
+
+}
+
+
+.hero-description {
+
+    margin:
+        25px 0 0;
+
+    color:
+        var(--subtext);
+
+    font-size:
+        21px;
+
+}
+
+
+/* ========================================
+   ボタン
+======================================== */
+
+.buttons {
+
+    display:
+        flex;
+
+    justify-content:
+        center;
+
+    gap:
+        14px;
+
+    margin-top:
+        40px;
+
+    flex-wrap:
+        wrap;
+
+}
+
+
+.button {
+
+    display:
+        inline-block;
+
+    padding:
+        14px 28px;
+
+    border-radius:
+        8px;
+
+    text-decoration:
+        none;
+
+    font-weight:
+        700;
+
+    transition:
+        transform 0.2s,
+        background 0.2s;
+
+}
+
+
+.button:hover {
+
+    transform:
+        translateY(-2px);
+
+}
+
+
+/* 参加方法 */
+
+.secondary {
+
+    background:
+        var(--accent);
+
+    color:
+        #ffffff;
+
+}
+
+
+.secondary:hover {
+
+    background:
+        var(--accent-hover);
+
+}
+
+
+/* Discord */
+
+.discord-button {
+
+    background:
+        #5865F2;
+
+    color:
+        #ffffff;
+
+}
+
+
+.discord-button:hover {
+
+    background:
+        #4752C4;
+
+}
+
+
+/* ========================================
+   セクション
+======================================== */
+
+.section {
+
+    max-width:
+        1100px;
+
+    margin:
+        0 auto;
+
+    padding:
+        100px 30px;
+
+}
+
+
+.section-header {
+
+    margin-bottom:
+        35px;
+
+}
+
+
+.section h2 {
+
+    margin:
+        0;
+
+    color:
+        var(--text);
+
+    font-size:
+        36px;
+
+}
+
+
+.section p {
+
+    line-height:
+        2;
+
+    color:
+        var(--subtext);
+
+}
+
+
+.lead {
+
+    font-size:
+        20px;
+
+    font-weight:
+        500;
+
+}
+
+
+/* ========================================
+   特徴
+======================================== */
+
+.feature-list {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 18px;
+
+}
+
+
+.feature-card {
+
+    width: 100%;
+
+    padding: 30px;
+
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: 12px;
+
+    transition:
+        transform 0.2s,
+        border-color 0.2s;
+
+}
+
+
+.feature-card:hover {
+
+    transform: translateX(4px);
+
+    border-color: var(--accent);
+
+}
+
+
+.feature-card h3 {
+
+    margin: 0 0 12px;
+
+    color: var(--text);
+
+    font-size: 20px;
+
+}
+
+
+.feature-card p {
+
+    margin: 0;
+
+    font-size: 15px;
+
+}
+
+
+
+/* ========================================
+   Discord
+======================================== */
+
+
+.discord-area {
+
+    margin-top:
+        45px;
+
+}
+
+
+.discord-content {
+
+    display:
+        flex;
+
+    align-items:
+        flex-start;
+
+    gap:
+        45px;
+
+}
+
+
+.discord-widget {
+
+    flex-shrink:
+        0;
+
+}
+
+
+.discord-widget iframe {
+
+    display:
+        block;
+
+    width:
+        350px;
+
+    max-width:
+        100%;
+
+    border-radius:
+        10px;
+
+    border:
+        1px solid var(--border);
+
+}
+
+
+.discord-description {
+
+    padding-top:
+        10px;
+
+    max-width:
+        450px;
+
+}
+
+
+.discord-description h3 {
+
+    margin:
+        0 0 20px;
+
+    color:
+        var(--text);
+
+    font-size:
+        24px;
+
+}
+
+
+.discord-description p {
+
+    margin:
+        0 0 18px;
+
+}
+
+
+.discord-button {
+    background: #5865F2;
+    color: #ffffff;
+}
+
+.discord-button:hover {
+    background: #4752C4;
+}
+
+.discord-description .discord-button {
+    display: inline-block;
+    margin-top: 10px;
+}
+
+
+/* ========================================
+   お知らせ
+======================================== */
+
+.news-list {
+
+    margin-bottom:
+        25px;
+
+}
+
+
+.news-item {
+
+    display:
+        flex;
+
+    gap:
+        30px;
+
+    padding:
+        18px 0;
+
+    border-bottom:
+        1px solid var(--border);
+
+}
+
+
+.news-date {
+
+    color:
+        var(--subtext);
+
+    white-space:
+        nowrap;
+
+}
+
+
+.news-title {
+
+    color:
+        var(--text);
+
+}
+
+
+/* ========================================
+   フッター
+======================================== */
+
+footer {
+
+    padding:
+        50px 20px;
+
+    text-align:
+        center;
+
+    background:
+        var(--footer);
+
+}
+
+
+.footer-logo {
+
+    color:
+        var(--text);
+
+    font-size:
+        20px;
+
+    font-weight:
+        bold;
+
+}
+
+
+footer p {
+
+    color:
+        var(--subtext);
+
+}
+
+
+footer .copyright {
+
+    margin-top:
+        30px;
+
+    font-size:
+        13px;
+
+}
+
+
+/* ========================================
+   スマートフォン
+======================================== */
+
+@media (max-width: 800px) {
+
+    .navbar {
+
+        height:
+            auto;
+
+        min-height:
+            65px;
+
+        padding:
+            12px 15px;
+
+        flex-direction:
+            column;
+
+        gap:
+            8px;
+
+    }
+
+
+    .navbar nav {
+
+        width:
+            100%;
+
+        justify-content:
+            center;
+
+        flex-wrap:
+            wrap;
+
+    }
+
+
+    .navbar nav a {
+
+        padding:
+            7px 9px;
+
+        font-size:
+            13px;
+
+    }
+
+
+    .hero {
+
+        padding-top:
+            170px;
+
+    }
+
+
+    .hero h1 {
+
+        letter-spacing:
+            1px;
+
+    }
+
+
+    .feature-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    .section {
+
+        padding:
+            70px 20px;
+
+    }
+
+
+    .section h2 {
+
+        font-size:
+            30px;
+
+    }
+
+
+    .hero-description {
+
+        font-size:
+            18px;
+
+    }
+
+}
+
+@media (max-width: 700px) {
+
+    .discord-content {
+
+        flex-direction:
+            column;
+
+        gap:
+            25px;
+
+    }
+
+
+    .discord-description {
+
+        padding-top:
+            0;
+
+        max-width:
+            none;
+
+    }
+
+}
+
+
+
+
+/* ========================================
+   参加方法ページ
+======================================== */
+
+.join-main {
+
+    display: flex;
+
+    width: 100%;
+
+    height: calc(100vh - 70px);
+
+    margin-top: 70px;
+
+}
+
+
+/* ========================================
+   左側：サーバー情報
+======================================== */
+
+.server-sidebar {
+
+    width: 33.333%;
+
+    height: 100%;
+
+    flex-shrink: 0;
+
+    padding: 50px 40px;
+
+    background:
+        var(--background-alt);
+
+    border-right:
+        1px solid var(--border);
+
+    overflow-y: auto;
+
+}
+
+
+.server-sidebar h1 {
+
+    margin:
+        0 0 40px;
+
+    font-size:
+        36px;
+
+    color:
+        var(--text);
+
+}
+
+
+.server-info {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        20px;
+
+}
+
+
+.server-info-item {
+
+    padding:
+        25px;
+
+    background:
+        var(--card);
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        12px;
+
+}
+
+
+.server-info-item h2 {
+
+    margin:
+        0 0 12px;
+
+    font-size:
+        16px;
+
+    color:
+        var(--subtext);
+
+}
+
+
+.server-value {
+
+    color:
+        var(--text);
+
+    font-family:
+        monospace;
+
+    font-size:
+        20px;
+
+    font-weight:
+        bold;
+
+    word-break:
+        break-all;
+
+}
+
+
+/* ========================================
+   右側：参加方法
+======================================== */
+
+.join-content {
+
+    width:
+        66.667%;
+
+    height:
+        100%;
+
+    overflow-y:
+        auto;
+
+    padding:
+        50px 60px 0;
+
+}
+
+
+.join-sections {
+
+    max-width:
+        900px;
+
+    margin:
+        0 auto;
+
+}
+
+
+.join-section {
+
+    margin:
+        0 auto 40px;
+
+    padding:
+        30px;
+
+    background:
+        var(--card);
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        12px;
+
+}
+
+
+.join-section h2 {
+
+    margin:
+        0 0 20px;
+
+    font-size:
+        28px;
+
+    color:
+        var(--text);
+
+}
+
+
+.join-section p {
+
+    color:
+        var(--subtext);
+
+    line-height:
+        2;
+
+}
+
+
+.join-section ol {
+
+    padding-left:
+        25px;
+
+    color:
+        var(--subtext);
+
+    line-height:
+        2.2;
+
+}
+
+
+.join-section strong {
+
+    color:
+        var(--text);
+
+}
+
+
+/* ========================================
+   参加方法ページのフッター
+======================================== */
+
+.join-content footer {
+
+    margin-top:
+        60px;
+
+    margin-left:
+        -60px;
+
+    margin-right:
+        -60px;
+
+}
+
+
+/* ========================================
+   スマートフォン
+======================================== */
+
+@media (max-width: 800px) {
+
+    .join-main {
+
+        display:
+            block;
+
+        height:
+            auto;
+
+        margin-top:
+            0;
+
+    }
+
+
+    /* ナビゲーションの高さ分を確保 */
+
+    .server-sidebar {
+
+        width:
+            100%;
+
+        height:
+            auto;
+
+        padding:
+            170px 25px 40px;
+
+        border-right:
+            none;
+
+        border-bottom:
+            1px solid var(--border);
+
+        overflow:
+            visible;
+
+    }
+
+
+    .server-sidebar h1 {
+
+        margin-bottom:
+            30px;
+
+        font-size:
+            32px;
+
+    }
+
+
+    .server-info {
+
+        gap:
+            15px;
+
+    }
+
+
+    .server-info-item {
+
+        padding:
+            20px;
+
+    }
+
+
+    .join-content {
+
+        width:
+            100%;
+
+        height:
+            auto;
+
+        overflow:
+            visible;
+
+        padding:
+            40px 20px 0;
+
+    }
+
+
+    .join-section {
+
+        padding:
+            25px;
+
+        margin-bottom:
+            25px;
+
+    }
+
+
+    .join-section h2 {
+
+        font-size:
+            24px;
+
+    }
+
+
+    .join-content footer {
+
+        margin-top:
+            50px;
+
+        margin-left:
+            -20px;
+
+        margin-right:
+            -20px;
+
+    }
+
+}
+/* ========================================
+   Minecraft自動追加
+======================================== */
+
+.minecraft-add {
+
+    margin:
+        0 auto 40px;
+
+    padding:
+        30px;
+
+    background:
+        var(--card);
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        12px;
+
+}
+
+
+.minecraft-add h2 {
+
+    margin:
+        0 0 15px;
+
+    font-size:
+        28px;
+
+    color:
+        var(--text);
+
+}
+
+
+.minecraft-add p {
+
+    margin:
+        0 0 20px;
+
+    color:
+        var(--subtext);
+
+    line-height:
+        2;
+
+}
+
+
+.minecraft-button {
+
+    display:
+        inline-block;
+
+    background:
+        #43a047;
+
+    color:
+        #ffffff;
+
+}
+
+
+.minecraft-button:hover {
+
+    background:
+        #388e3c;
+
+}
