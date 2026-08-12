@@ -52,55 +52,7 @@ let startY = 0;
 let startOffsetX = 0;
 let startOffsetY = 0;
 
-// ========================================
-// スマホ用ピンチズーム
-// ========================================
 
-const activePointers = new Map();
-
-let pinchStartDistance = 0;
-let pinchStartScale = 1;
-
-let pinchStartOffsetX = 0;
-let pinchStartOffsetY = 0;
-
-let pinchCenterX = 0;
-let pinchCenterY = 0;
-
-
-// 2点間の距離
-function getPointerDistance() {
-
-    const points =
-        [...activePointers.values()];
-
-    if (points.length < 2) {
-        return 0;
-    }
-
-    const dx =
-        points[0].x - points[1].x;
-
-    const dy =
-        points[0].y - points[1].y;
-
-    return Math.sqrt(
-        dx * dx + dy * dy
-    );
-}
-
-
-// 2点の中心
-function getPointerCenter() {
-
-    const points =
-        [...activePointers.values()];
-
-    return {
-        x: (points[0].x + points[1].x) / 2,
-        y: (points[0].y + points[1].y) / 2
-    };
-}
 
 /* ========================================
    地図更新
@@ -122,69 +74,11 @@ container.addEventListener(
     "pointerdown",
     (event) => {
 
-        activePointers.set(
-            event.pointerId,
-            {
-                x: event.clientX,
-                y: event.clientY
-            }
-        );
-
-
-        // ========================================
-        // 2本指になった → ピンチズーム開始
-        // ========================================
-
-        if (activePointers.size === 2) {
-
-            dragging = false;
-
-            pinchStartDistance =
-                getPointerDistance();
-
-            pinchStartScale =
-                scale;
-
-            pinchStartOffsetX =
-                offsetX;
-
-            pinchStartOffsetY =
-                offsetY;
-
-
-            const center =
-                getPointerCenter();
-
-
-            const rect =
-                container.getBoundingClientRect();
-
-
-            pinchCenterX =
-                center.x - rect.left;
-
-            pinchCenterY =
-                center.y - rect.top;
-
-
-            return;
-        }
-
-
-        // ========================================
-        // ピンを押した場合はドラッグしない
-        // ========================================
-
         if (
             event.target.classList.contains("map-pin")
         ) {
             return;
         }
-
-
-        // ========================================
-        // 通常の1本指ドラッグ
-        // ========================================
 
         dragging = true;
 
@@ -212,94 +106,17 @@ container.addEventListener(
     "pointermove",
     (event) => {
 
-        if (
-            !activePointers.has(
-                event.pointerId
-            )
-        ) {
-            return;
-        }
-
-
-        activePointers.set(
-            event.pointerId,
-            {
-                x: event.clientX,
-                y: event.clientY
-            }
-        );
-
-
-        // ========================================
-        // 2本指 → ピンチズーム
-        // ========================================
-
-        if (activePointers.size === 2) {
-
-            const distance =
-                getPointerDistance();
-
-
-            if (pinchStartDistance === 0) {
-                return;
-            }
-
-
-            const oldScale =
-                pinchStartScale;
-
-
-            scale =
-                pinchStartScale *
-                (distance / pinchStartDistance);
-
-
-            scale =
-                Math.max(
-                    0.05,
-                    Math.min(4, scale)
-                );
-
-
-            // マウスホイールと同じように
-            // 2本指の中心を基準に拡大縮小
-
-            offsetX =
-                pinchCenterX -
-                (pinchCenterX - pinchStartOffsetX)
-                * (scale / oldScale);
-
-
-            offsetY =
-                pinchCenterY -
-                (pinchCenterY - pinchStartOffsetY)
-                * (scale / oldScale);
-
-
-            updateMap();
-
-            return;
-        }
-
-
-        // ========================================
-        // 1本指 → 通常のドラッグ
-        // ========================================
-
         if (!dragging) {
             return;
         }
-
 
         offsetX =
             startOffsetX +
             (event.clientX - startX);
 
-
         offsetY =
             startOffsetY +
             (event.clientY - startY);
-
 
         updateMap();
 
@@ -315,36 +132,15 @@ container.addEventListener(
     "pointerup",
     (event) => {
 
-        activePointers.delete(
-            event.pointerId
-        );
-
-
-        if (activePointers.size < 2) {
-
-            pinchStartDistance = 0;
-
-        }
-
-
         dragging = false;
 
         container.classList.remove(
             "dragging"
         );
 
-
-        if (
-            container.hasPointerCapture(
-                event.pointerId
-            )
-        ) {
-
-            container.releasePointerCapture(
-                event.pointerId
-            );
-
-        }
+        container.releasePointerCapture(
+            event.pointerId
+        );
 
     }
 );
@@ -416,26 +212,7 @@ container.addEventListener(
     }
 );
 
-/* ========================================
-キャンセル
-======================================== */
 
-container.addEventListener(
-    "pointercancel",
-    (event) => {
-
-        activePointers.delete(
-            event.pointerId
-        );
-
-        dragging = false;
-
-        container.classList.remove(
-            "dragging"
-        );
-
-    }
-);
 /* ========================================
 施設データからピンを生成
 ======================================== */
@@ -795,3 +572,171 @@ facilityItems.forEach(
 
     }
 );
+
+/* ========================================
+   ズームボタン
+======================================== */
+
+const zoomIn =
+    document.getElementById(
+        "zoom-in"
+    );
+
+const zoomOut =
+    document.getElementById(
+        "zoom-out"
+    );
+
+const zoomLevel =
+    document.getElementById(
+        "zoom-level"
+    );
+
+
+/* ========================================
+   ズーム倍率表示
+======================================== */
+
+function updateZoomLevel() {
+
+    zoomLevel.textContent =
+        Math.round(scale * 100) + "%";
+
+}
+
+
+/* ========================================
+   拡大
+======================================== */
+
+zoomIn.addEventListener(
+    "pointerdown",
+    (event) => {
+
+        event.preventDefault();
+        event.stopPropagation();
+
+
+        const oldScale =
+            scale;
+
+
+        scale *= 1.2;
+
+
+        scale =
+            Math.min(
+                4,
+                scale
+            );
+
+
+        const centerX =
+            container.clientWidth / 2;
+
+        const centerY =
+            container.clientHeight / 2;
+
+
+        offsetX =
+            centerX -
+            (
+                centerX -
+                offsetX
+            ) *
+            (
+                scale /
+                oldScale
+            );
+
+
+        offsetY =
+            centerY -
+            (
+                centerY -
+                offsetY
+            ) *
+            (
+                scale /
+                oldScale
+            );
+
+
+        updateMap();
+
+        updateZoomLevel();
+
+    }
+);
+
+
+/* ========================================
+   縮小
+======================================== */
+
+zoomOut.addEventListener(
+    "pointerdown",
+    (event) => {
+
+        event.preventDefault();
+        event.stopPropagation();
+
+
+        const oldScale =
+            scale;
+
+
+        scale /= 1.2;
+
+
+        scale =
+            Math.max(
+                0.15,
+                scale
+            );
+
+
+        const centerX =
+            container.clientWidth / 2;
+
+        const centerY =
+            container.clientHeight / 2;
+
+
+        offsetX =
+            centerX -
+            (
+                centerX -
+                offsetX
+            ) *
+            (
+                scale /
+                oldScale
+            );
+
+
+        offsetY =
+            centerY -
+            (
+                centerY -
+                offsetY
+            ) *
+            (
+                scale /
+                oldScale
+            );
+
+
+        updateMap();
+
+        updateZoomLevel();
+
+    }
+);
+
+
+/* ========================================
+   初期倍率
+======================================== */
+
+updateZoomLevel();
