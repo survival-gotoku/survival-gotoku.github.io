@@ -1,38 +1,385 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Website</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            line-height: 1.6;
-        }
-        h1 {
-            color: #333;
-            border-bottom: 2px solid #ccc;
-            padding-bottom: 10px;
-        }
-        .section {
-            margin: 20px 0;
-        }
-    </style>
-</head>
-<body>
-    <h1>Welcome</h1>
-    
-    <div class="section">
-        <!-- <h2></h2>
-        <p></p> -->
-    </div>
 
-    <div class="section">
-        <!-- <h2></h2>
-        <p></p> -->
-    </div>
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>サバイバルが如く</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         ナビゲーション
+    ========================== -->
+
+    <header class="navbar">
+
+        <a
+            href="/"
+            class="logo">
+            サバイバルが如く
+        </a>
+
+
+        <nav>
+
+            <a href="/" class="active">
+                ホーム
+            </a>
+
+            <a href="/join/">
+                参加方法
+            </a>
+        
+            <a href="/rule/">
+                ルール
+            </a>
+        
+            <span class="nav-divider"></span>
+        
+            <a href="/map/">
+                施設座標
+            </a>
+
+        </nav>
+
+    </header>
+
+
+
+    <main>
+
+
+        <!-- =========================
+             メイン
+        ========================== -->
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <p class="hero-description">
+                    Minecraft 統合版のサバイバルサーバー
+                </p>
+                
+                <h1>
+                    サバイバルが如く
+                </h1>
+
+                <div class="buttons">
+                
+                    <a
+                        href="/join/"
+                        class="button secondary">
+                        参加方法を見る
+                    </a>
+                
+                
+                    <a
+                        href="https://discord.gg/ckYT8VkdU8"
+                        class="button discord-button"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        Discordに参加
+                    </a>
+                
+                </div>
+
+            </div>
+
+        </section>
+
+    <!-- =========================
+         サーバー紹介
+    ========================== -->
+
+    <section class="section introduction">
+
+        <div class="section-header">
+
+            <h2>
+                サバイバルが如くとは
+            </h2>
+
+        </div>
+
+
+        <p class="lead">
+
+            「サバイバルが如く」は、自由にサバイバルを楽しめる、Minecraft統合版のサーバーです。
+
+        </p>
+
+
+        <p>
+
+            装置を作ったり、巨大な街を作ったり、整地をしたりなど、無制限の土地で自由に遊べます。
+
+        </p>
+
+
+        <p>
+
+            参加したてでも、ある程度の物資が揃っているため、資源集めに時間を使わず、最初からやりたいことを楽しめます。
+
+        </p>
+
+
+        <!-- Discord -->
+        <div class="discord-area">
+        
+            <div class="discord-content">
+            
+                <div class="discord-widget">
+                
+                    <iframe
+                        id="discord-widget"
+                        src="https://discord.com/widget?id=1000950532933955604&theme=light"
+                        width="350"
+                        height="500"
+                        allowtransparency="true"
+                        frameborder="0"
+                        sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts">
+                    </iframe>
+                
+                </div>
+            
+            
+                <div class="discord-description">
+                
+                    <h3>
+                        Discordへの参加でさらに充実
+                    </h3>
+                
+                    <p>
+                        MinecraftとDiscordを連携しており、
+                        MinecraftとDiscordの双方向でチャットをすることができます。
+                    </p>
+                
+                    <p>
+                        サーバーのお知らせや情報などがいち早く確認できるため、Discordに参加することをおすすめします。
+                    </p>
+                
+                    <a
+                        href="https://discord.gg/ckYT8VkdU8"
+                        class="button primary discord-button"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        Discordに参加する
+                    </a>
+                
+                </div>
+            
+            </div>
+        
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         特徴
+    ========================== -->
+
+    <section class="section features">
+
+        <div class="section-header">
+
+            <h2>
+                サーバーの特徴
+            </h2>
+
+        </div>
+
+
+        <div class="feature-list">
+
+
+            <div class="feature-card">
+
+                <h3>
+                    実績解除可能
+                </h3>
+
+                <p>
+                    サバイバルに影響するようなアドオンなどは導入していないため、実績を解除できます。
+                </p>
+
+            </div>
+
+
+
+            <div class="feature-card">
+
+                <h3>
+                    初心者にも優しい
+                </h3>
+
+                <p>
+                    始めたてや初心者の方に優しいプレイヤーが多く、気軽に参加できます。
+                </p>
+
+            </div>
+
+
+
+            <div class="feature-card">
+
+                <h3>
+                    MinecraftとDiscordの連携
+                </h3>
+
+                <p>
+                    ゲーム内チャットをDiscordと連携。Discordからサーバーのお知らせや情報など、便利な情報を確認できます。
+                </p>
+
+            </div>
+
+
+
+            <div class="feature-card">
+
+                <h3>
+                    ほぼ年中無休のサーバー
+                </h3>
+
+                <p>
+                    サーバーはほぼ年中無休で稼働しており、いつでも参加できます。
+                </p>
+
+            </div>
+
+
+
+            <div class="feature-card">
+
+                <h3>
+                    物資もある程度充実
+                </h3>
+
+                <p>
+                    物資がある程度集まっているため、資源集めだけに時間を使わず、建築や探索を楽しめます。
+                </p>
+
+            </div>
+
+
+
+            <div class="feature-card">
+
+                <h3>
+                    気軽に遊べる
+                </h3>
+
+                <p>
+                    「今日は少しだけ遊びたい」そんなときでも気軽に参加可能です。
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+    
+        <!-- =========================
+             お知らせ
+        ========================== -->
+
+        <section class="section news">
+
+
+            <div class="section-header">
+
+                <h2>
+                    お知らせ
+                </h2>
+
+            </div>
+
+
+            <div class="news-list">
+
+
+                <div class="news-item">
+
+                    <span class="news-date">
+                        2026.08.12
+                    </span>
+
+                    <span class="news-title">
+                        公式サイトの開発を開始しました。
+                    </span>
+
+                </div>
+
+
+                <div class="news-item">
+
+                    <span class="news-date">
+                        ---
+                    </span>
+
+                    <span class="news-title">
+                        今後のお知らせを掲載します。
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =========================
+         フッター
+    ========================== -->
+
+    <footer>
+
+
+        <div class="footer-logo">
+            サバイバルが如く
+        </div>
+
+        <p>
+            *このサイトは一部AIを使用して制作されています。
+        </p>
+        <p class="copyright">
+            © 2026 サバイバルが如く
+        </p>
+
+
+    </footer>
+
+
+
+    <!-- =========================
+         Discordテーマ切り替え
+    ========================== -->
+
+    <script src="script.js"></script>
+
+
 </body>
+
 </html>
