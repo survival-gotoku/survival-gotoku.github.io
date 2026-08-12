@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>施設マップ - サバイバルが如く</title>
+
+    <link
+        rel="stylesheet"
+        href="/style.css">
+
+    <link
+        rel="stylesheet"
+        href="/map/map.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         ナビゲーション
+    ========================== -->
+
+    <header class="navbar">
+
+        <a
+            href="/"
+            class="logo">
+            サバイバルが如く
+        </a>
+
+
+        <nav>
+
+            <a href="/">
+                ホーム
+            </a>
+        
+            <a href="/join/">
+                参加方法
+            </a>
+        
+            <a href="/rule/">
+                ルール
+            </a>
+        
+            <span class="nav-divider"></span>
+        
+            <a href="/map/" class="active">
+                施設座標
+            </a>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- =========================
+         マップ
+    ========================== -->
+
+    <main class="map-page">
+
+        <div class="map-header">
+            <p>
+                地図をドラッグして移動できます。
+                ホイールで拡大・縮小できます。
+            </p>
+        </div>
+
+
+        <div id="map-container">
+
+            <div id="map">
+                <!-- 上2段 -->
+                <img src="-2_2.png" class="map-image tile-x-2 tile-y-2">
+                <img src="-1_2.png"   class="map-image tile-x-1 tile-y-2">
+                <img src="0_2.png"     class="map-image tile-x0 tile-y-2">
+                <img src="1_2.png"   class="map-image tile-x1 tile-y-2">
+                <img src="2_2.png" class="map-image tile-x2 tile-y-2">
+            
+                <img src="-2_1.png" class="map-image tile-x-2 tile-y-1">
+                <img src="-1_1.png"   class="map-image tile-x-1 tile-y-1">
+                <img src="0_1.png"   class="map-image tile-x0 tile-y-1">
+                <img src="1_1.png"   class="map-image tile-x1 tile-y-1">
+                <img src="2_1.png" class="map-image tile-x2 tile-y-1">
+            
+                <!-- 中央の段 -->
+                <img src="-2_0.png" class="map-image tile-x-2 tile-y0">
+                <img src="-1_0.png"  class="map-image tile-x-1 tile-y0">
+            
+                <!-- ★中央画像 -->
+                <img src="0_0.png" class="map-image tile-x0 tile-y0">
+            
+                <img src="1_0.png" class="map-image tile-x1 tile-y0">
+                <img src="2_0.png" class="map-image tile-x2 tile-y0">
+            
+                <!-- 下1段 -->
+                <img src="-2_-1.png" class="map-image tile-x-2 tile-y1">
+                <img src="-1_-1.png" class="map-image tile-x-1 tile-y1">
+                <img src="0_-1.png" class="map-image tile-x0 tile-y1">
+                <img src="1_-1.png" class="map-image tile-x1 tile-y1">
+                <img src="2_-1.png" class="map-image tile-x2 tile-y1">
+            </div>
+
+        </div>
+
+        <!-- =========================
+             施設一覧
+        ========================== -->
+
+        <div
+            id="facility-menu"
+            class="facility-menu">
+
+            <button
+                id="facility-menu-toggle"
+                class="facility-menu-toggle">
+
+                施設一覧を閉じる
+
+            </button>
+        
+            <div
+                id="facility-list"
+                class="facility-list">
+            </div>
+        
+        </div>
+
+        <!-- 施設情報 -->
+
+        <div
+            id="facility-info"
+            class="facility-info hidden">
+
+            <button
+                id="facility-close">
+
+                ×
+
+            </button>
+        
+            <h2 id="facility-name">
+            </h2>
+
+            <p
+                id="facility-coordinates"
+                class="facility-coordinates">
+            </p>
+
+            <p
+                id="facility-description">
+            </p>
+        
+        </div>
+
+    </main>
+
+    <script src="map.js"></script>
+
+</body>
+
+</html>
