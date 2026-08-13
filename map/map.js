@@ -1,36 +1,138 @@
+const facilities = [
+    {
+        id: "spawnpoint",
+        name: "初期スポーン地点",
+        description: "一番最初にスポーンする場所です。",
+
+        x: 0, y: 106, z: 0
+    },
+    {
+        id: "chests",
+        name: "倉庫",
+        description: "物資を共有できる倉庫です。",
+
+        x: 13, y: 100, z: 57
+    },
+    {
+        id: "infoboard",
+        name: "掲示板",
+        description: "情報を共有できる掲示板です。",
+
+        x: 50, y: 94, z: 78
+    },
+    {
+        id: "mining_area",
+        name: "採掘場",
+        description: "鉱石を採掘できる場所です。",
+
+        x: 0, y: 112, z: 25
+    },
+    {
+        id: "trading_area",
+        name: "村人交易場",
+        description: "村人と取引できる場所です。",
+
+        x: -66, y: 110, z: 65
+    },
+    {
+        id: "simple_workspace",
+        name: "簡易作業場",
+        description: "簡単な作業を行える場所です。",
+
+        x: -9, y: 107, z: 45
+    },
+    {
+        id: "infinite_lava",
+        name: "無限溶岩",
+        description: "溶岩を無限に汲める場所です。",
+
+        x: 31, y: 94, z: 39
+    },
+    // {
+    //     id: "trap_skeleton",
+    //     name: "スケルトントラップ",
+    //     description: "入手可能: 骨, 矢, 弓",
+
+    //     x: 69, y: 93, z: 27
+    // },
+    {
+        id: "trap_iron_golem",
+        name: "アイアンゴーレムトラップ",
+        description: "入手可能: 鉄, ポピー",
+
+        x: -88, y: 110, z: 66
+    },
+    {
+        id: "trap_sky",
+        name: "天空トラップ",
+        description: "入手可能: クモの目, 糸, 火薬, 骨, 腐肉, ニンジン, 矢, ガラス瓶, グロウストーンダスト, レッドストーンダスト",
+
+        x: -99, y: 169, z: 82
+    },
+    {
+        id: "10_furnace",
+        name: "１０連かまど",
+        description: "１０倍の効率で焼けます。",
+
+        x: 17, y: 94, z: 104
+    },
+    {
+        id: "mud_clay",
+        name: "泥・粘土",
+        description: "土から泥と粘土を半自動で入手できます。",
+
+        x: 6, y: 93, z: 108
+    },
+    {
+        id: "cactus",
+        name: "サボテン",
+        description: "サボテンを自動で入手できます。",
+
+        x: 19, y: 98, z: 39
+    },
+    {
+        id: "sugar_cane",
+        name: "サトウキビ",
+        description: "サトウキビを自動で入手できます。",
+
+        x: -92, y: 108, z: 61
+    },
+    // {
+    //     id: "cow",
+    //     name: "牛",
+    //     description: "ステーキを自動で入手できます。",
+
+    //     x: -22, y: 104, z: 55
+    // },
+    // {
+    //     id: "chicken",
+    //     name: "鶏",
+    //     description: "焼き鶏を自動で入手できます。",
+
+    //     x: 20, y: 98, z: 46
+    // },
+
+];
+
 // const facilities = [
+
 //     {
-//         id: "spawnpoint",
-//         name: "初期スポーン地点",
-//         description: "一番最初にスポーンする場所です。",
+//         id: "test",
+//         name: "test",
+//         description: "これはテストです。座標は全く異なります。",
 
-//         x: 0, y: 106, z: 0,
-//         mapX: 50.5, mapY: 65
-//     },
-//     // {
-//     //     id: "village",
-//     //     name: "村",
-//     //     description: "プレイヤーが自由に建築や開拓を行っている場所です。",
-
-//     //     x: 100, y: 64, z: -200,
-//     //     mapX: 41, mapY: 0
-//     // },
+//         x: 0,
+//         y: 64,
+//         z: 0
+//     }
 
 // ];
 
-const facilities = [
+const MAP_CENTER_X = 50 //%
+const MAP_CENTER_Z = 62.5 //%    12.5%で画像の中心になるのでそこから50%ずつ変える
 
-    {
-        id: "test",
-        name: "test",
-        description: "これはテストです。座標は全く異なります。",
-
-        x: 0,
-        y: 64,
-        z: 0
-    }
-
-];
+// Minecraft 1ブロックあたりの画像上のピクセル数
+const PIXELS_PER_BLOCK = 12;
 
 
 const container =
@@ -63,8 +165,27 @@ function updateMap() {
     map.style.transform =
         `translate(${offsetX}px, ${offsetY}px) scale(${scale})`;
 
+    updatePinScale();
+
 }
 
+function updatePinScale() {
+
+    pins.forEach((pin) => {
+
+        const baseScale = 1 / scale;
+
+        const selectedScale =
+            pin.classList.contains("selected")
+                ? baseScale * 1.5
+                : baseScale;
+
+        pin.style.transform =
+            `translate(-50%, -50%) scale(${selectedScale})`;
+
+    });
+
+}
 
 /* ========================================
    ドラッグ開始
@@ -240,8 +361,11 @@ facilities.forEach(
 
         // pin.style.top =
         //     facility.mapY + "%";
-        pin.style.left = "calc(50% + 12px)";
-        pin.style.top = "calc(50% + 20px)";
+        pin.style.left =
+            `calc(${MAP_CENTER_X}% + 6px + ${facility.x * PIXELS_PER_BLOCK}px)`;
+
+        pin.style.top =
+            `calc(${MAP_CENTER_Z}% + 20px + ${facility.z * PIXELS_PER_BLOCK}px)`;
 
 
         pin.dataset.name =
@@ -334,6 +458,8 @@ function selectPin(pin, moveMap = false) {
     pin.classList.add(
         "selected"
     );
+    
+    updatePinScale();
 
 
     /* ========================================
