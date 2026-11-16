@@ -92,6 +92,8 @@
 
         width: 42px;
         height: 42px;
+        box-sizing: border-box;
+
         align-items: center;
         justify-content: center;
 
@@ -99,7 +101,7 @@
         border: 1px solid rgba(128, 128, 128, 0.35);
         border-radius: 10px;
 
-        color: var(--text-color);
+        color: #333;
         text-decoration: none;
 
         backdrop-filter: blur(3px);
