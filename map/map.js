@@ -155,6 +155,30 @@ let startOffsetX = 0;
 let startOffsetY = 0;
 
 
+/* ========================================
+   最小ズーム倍率・地図中央配置
+======================================== */
+
+function getMinScale() {
+
+    return Math.min(
+        container.clientWidth / map.offsetWidth,
+        container.clientHeight / map.offsetHeight
+    );
+
+}
+
+
+// 地図全体を画面中央に配置
+function centerMap() {
+
+    offsetX =
+        (container.clientWidth - map.offsetWidth * scale) / 2;
+
+    offsetY =
+        (container.clientHeight - map.offsetHeight * scale) / 2;
+
+}
 
 /* ========================================
    地図更新
@@ -187,23 +211,58 @@ function updatePinScale() {
 
 }
 
+
 /* ========================================
-   ドラッグ開始
+   ドラッグ・ピンチ操作
 ======================================== */
 
-container.addEventListener(
-    "pointerdown",
-    (event) => {
+// 現在操作中の指を記録
+const activePointers = new Map();
 
-        if (
-            event.target.classList.contains("map-pin")
-        ) {
-            return;
-        }
+let pinchDistance = 0;
 
+
+// 2点間の距離
+function getPinchDistance(p1, p2) {
+    return Math.hypot(
+        p2.x - p1.x,
+        p2.y - p1.y
+    );
+}
+
+
+// 2点の中間地点
+function getPinchCenter(p1, p2) {
+    const rect = container.getBoundingClientRect();
+
+    return {
+        x: (p1.x + p2.x) / 2 - rect.left,
+        y: (p1.y + p2.y) / 2 - rect.top
+    };
+}
+
+
+/* ========================================
+   操作開始
+======================================== */
+
+container.addEventListener("pointerdown", (event) => {
+
+    if (event.target.classList.contains("map-pin")) {
+        return;
+    }
+
+    activePointers.set(event.pointerId, {
+        x: event.clientX,
+        y: event.clientY
+    });
+
+    container.setPointerCapture(event.pointerId);
+
+    if (activePointers.size === 1) {
+
+        // 1本指：ドラッグ開始
         dragging = true;
-
-        container.classList.add("dragging");
 
         startX = event.clientX;
         startY = event.clientY;
@@ -211,25 +270,92 @@ container.addEventListener(
         startOffsetX = offsetX;
         startOffsetY = offsetY;
 
-        container.setPointerCapture(
-            event.pointerId
+        container.classList.add("dragging");
+
+    } else if (activePointers.size === 2) {
+
+        // 2本指：ピンチ開始
+        dragging = false;
+
+        const points = Array.from(activePointers.values());
+
+        pinchDistance = getPinchDistance(
+            points[0],
+            points[1]
         );
 
+        container.classList.remove("dragging");
     }
-);
+
+});
 
 
 /* ========================================
-   ドラッグ中
+   操作中
 ======================================== */
 
-container.addEventListener(
-    "pointermove",
-    (event) => {
+container.addEventListener("pointermove", (event) => {
 
-        if (!dragging) {
-            return;
+    if (!activePointers.has(event.pointerId)) {
+        return;
+    }
+
+    activePointers.set(event.pointerId, {
+        x: event.clientX,
+        y: event.clientY
+    });
+
+
+    // 2本指：ピンチズーム
+    if (activePointers.size >= 2) {
+
+        const points = Array.from(activePointers.values());
+
+        const p1 = points[0];
+        const p2 = points[1];
+
+        const newDistance = getPinchDistance(p1, p2);
+
+        const center = getPinchCenter(p1, p2);
+
+        if (pinchDistance > 0) {
+
+            const oldScale = scale;
+
+            const ratio = newDistance / pinchDistance;
+
+            scale = Math.max(
+                getMinScale(),
+                Math.min(4, scale * ratio)
+            );
+
+            // 指の中間地点を中心にズーム
+            offsetX =
+                center.x -
+                (center.x - offsetX) *
+                (scale / oldScale);
+
+            offsetY =
+                center.y -
+                (center.y - offsetY) *
+                (scale / oldScale);
+
+            if (scale <= getMinScale()) {
+                centerMap();
+            }
+
+            updateMap();
+            updateZoomLevel();
         }
+
+        pinchDistance = newDistance;
+
+        return;
+    }
+
+
+    // 1本指：ドラッグ
+    if (activePointers.size === 1 && dragging) {
 
         offsetX =
             startOffsetX +
@@ -240,31 +366,59 @@ container.addEventListener(
             (event.clientY - startY);
 
         updateMap();
-
     }
-);
+
+});
 
 
 /* ========================================
-   ドラッグ終了
+   操作終了
 ======================================== */
 
-container.addEventListener(
-    "pointerup",
-    (event) => {
+function endPointer(event) {
+
+    if (!activePointers.has(event.pointerId)) {
+        return;
+    }
+
+    activePointers.delete(event.pointerId);
+
+    if (container.hasPointerCapture(event.pointerId)) {
+        container.releasePointerCapture(event.pointerId);
+    }
+
+
+    if (activePointers.size === 1) {
+
+        // ピンチ終了後、残った指でドラッグできるようにする
+        const remaining = Array.from(activePointers.values())[0];
+
+        dragging = true;
+
+        startX = remaining.x;
+        startY = remaining.y;
+
+        startOffsetX = offsetX;
+        startOffsetY = offsetY;
+
+        pinchDistance = 0;
+
+        container.classList.add("dragging");
+
+    } else {
 
         dragging = false;
+        pinchDistance = 0;
 
-        container.classList.remove(
-            "dragging"
-        );
-
-        container.releasePointerCapture(
-            event.pointerId
-        );
-
+        container.classList.remove("dragging");
     }
-);
+
+}
+
+
+container.addEventListener("pointerup", endPointer);
+container.addEventListener("pointercancel", endPointer);
+
 
 
 /* ========================================
@@ -302,11 +456,10 @@ container.addEventListener(
         }
 
 
-        scale =
-            Math.max(
-                0.15,
-                Math.min(4, scale)
-            );
+        scale = Math.max(
+            getMinScale(),
+            Math.min(4, scale)
+        );
 
 
         /*
@@ -324,8 +477,12 @@ container.addEventListener(
             (mouseY - offsetY)
             * (scale / oldScale);
 
+        if (scale <= getMinScale()) {
+            centerMap();
+        }
 
         updateMap();
+        updateZoomLevel();
 
     },
     {
@@ -815,11 +972,10 @@ zoomOut.addEventListener(
         scale /= 1.2;
 
 
-        scale =
-            Math.max(
-                0.15,
-                scale
-            );
+        scale = Math.max(
+            getMinScale(),
+            scale
+        );
 
 
         const centerX =
@@ -853,6 +1009,10 @@ zoomOut.addEventListener(
             );
 
 
+        if (scale <= getMinScale()) {
+            centerMap();
+        }
+        
         updateMap();
 
         updateZoomLevel();
