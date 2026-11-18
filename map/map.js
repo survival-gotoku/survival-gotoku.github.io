@@ -1112,7 +1112,19 @@ updateFacilityFilter();
    施設一覧の開閉
 ======================================== */
 
-let facilityMenuOpen = true;
+let facilityMenuOpen = window.innerWidth > 768;
+
+
+facilityFilter.style.display =
+    facilityMenuOpen ? "block" : "none";
+
+facilityList.style.display =
+    facilityMenuOpen ? "flex" : "none";
+
+facilityMenuToggle.textContent =
+    facilityMenuOpen
+        ? "施設メニューを閉じる"
+        : "施設メニューを開く";
 
 facilityMenuToggle.addEventListener("click", () => {
 
