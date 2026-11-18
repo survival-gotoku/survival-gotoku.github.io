@@ -147,6 +147,9 @@
     }
 
     #facility-menu {
+        width: 290px;
+        max-width: calc(100vw - 24px);
+
         background: transparent !important;
         border: none !important;
         box-shadow: none !important;
@@ -163,7 +166,8 @@
         -webkit-backdrop-filter: blur(3px);
     }
 
-    #facility-list {
+    #facility-list,
+    #facility-filter {
         background: rgba(255, 255, 255, 0.35) !important;
         border: 1px solid rgba(128, 128, 128, 0.35);
         border-radius: 10px;
@@ -561,16 +565,6 @@
 }
 
 
-/* ========================================
-   マップ全体
-======================================== */
-
-#map {
-    position: relative;
-
-    width: 7750px;
-    height: 6196px;
-}
 
 
 /* ========================================
@@ -590,50 +584,6 @@
 }
 
 
-/* ========================================
-   X方向
-======================================== */
-
-.tile-x-2 {
-    left: 0;
-}
-
-.tile-x-1 {
-    left: 1550px;
-}
-
-.tile-x0 {
-    left: 3100px;
-}
-
-.tile-x1 {
-    left: 4650px;
-}
-
-.tile-x2 {
-    left: 6200px;
-}
-
-
-/* ========================================
-   Y方向
-======================================== */
-
-.tile-y-2 {
-    top: 0;
-}
-
-.tile-y-1 {
-    top: 1549px;
-}
-
-.tile-y0 {
-    top: 3098px;
-}
-
-.tile-y1 {
-    top: 4647px;
-}
 
 /* ========================================
    マップ拡大縮小ボタン
@@ -729,4 +679,41 @@
 
     font-size:
         14px;
+}
+
+
+/* ========================================
+   施設フィルター
+======================================== */
+
+.facility-filter {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 8px;
+    padding: 12px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.25);
+}
+
+.facility-filter-item {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: var(--text);
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.facility-filter-item input {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.facility-list-item[hidden],
+.map-pin[hidden] {
+    display: none;
 }
