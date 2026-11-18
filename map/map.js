@@ -1112,20 +1112,15 @@ updateFacilityFilter();
    施設一覧の開閉
 ======================================== */
 
-let facilityMenuOpen = window.innerWidth > 768;
+let facilityMenuOpen = false;
 
+// 初期状態を非表示にする
+facilityFilter.style.display = "none";
+facilityList.style.display = "none";
 
-facilityFilter.style.display =
-    facilityMenuOpen ? "block" : "none";
+facilityMenuToggle.textContent = "施設メニューを開く";
 
-facilityList.style.display =
-    facilityMenuOpen ? "flex" : "none";
-
-facilityMenuToggle.textContent =
-    facilityMenuOpen
-        ? "施設メニューを閉じる"
-        : "施設メニューを開く";
-
+// 開閉ボタン
 facilityMenuToggle.addEventListener("click", () => {
 
     facilityMenuOpen = !facilityMenuOpen;
