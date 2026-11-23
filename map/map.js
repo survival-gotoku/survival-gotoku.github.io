@@ -125,6 +125,133 @@ const facilities = [
         category: "station",
         x: 267, y: 121, z: -37
     },
+    {
+        id: "ss_3",
+        name: "(SS-3)新天地",
+        description: "",
+        category: "station",
+        x: -147, y: 104, z: 250
+    },
+    {
+        id: "ss_4",
+        name: "(SS-4)松川 / 新松川",
+        description: "",
+        category: "station",
+        x: 0, y: 75, z: 800
+    },
+    {
+        id: "ss_5",
+        name: "(SS-5)村",
+        description: "",
+        category: "station",
+        x: -312, y: 83, z: 793
+    },
+
+    {
+        id: "shin_1",
+        name: "拠点",
+        description: "",
+        category: "station",
+        x: 0, y: 85, z: 0
+    },
+    {
+        id: "shin_2",
+        name: "エンドポータル前",
+        description: "",
+        category: "station",
+        x: 1800, y: 85, z: 0
+    },
+    {
+        id: "shin_3",
+        name: "エンドポータル上",
+        description: "",
+        category: "station",
+        x: 1850, y: 85, z: -234
+    },
+    {
+        id: "shin_4",
+        name: "エンド要塞村",
+        description: "",
+        category: "station",
+        x: 1800, y: 85, z: -257
+    },
+    {
+        id: "shin_5",
+        name: "海底神殿",
+        description: "",
+        category: "station",
+        x: 0, y: 85, z: 1650
+    },
+    {
+        id: "shin_6",
+        name: "名称不明駅",
+        description: "",
+        category: "station",
+        x: 0, y: 100, z: -250
+    },
+    {
+        id: "shin_7",
+        name: "名称不明駅",
+        description: "",
+        category: "station",
+        x: 0, y: 100, z: -1000
+    },
+    {
+        id: "shin_8",
+        name: "名称不明駅",
+        description: "",
+        category: "station",
+        x: 0, y: 80, z: -1850
+    },
+    {
+        id: "shin_9",
+        name: "ムーシュルーム前",
+        description: "",
+        category: "station",
+        x: 0, y: 80, z: -2600
+    },
+    {
+        id: "shin_10",
+        name: "ムーシュルーム",
+        description: "",
+        category: "station",
+        x: -1200, y: 80, z: -2600
+    },
+    {
+        id: "shin_11",
+        name: "名称不明駅",
+        description: "",
+        category: "station",
+        x: -1500, y: 85, z: 0
+    },
+    {
+        id: "shin_12",
+        name: "名称不明駅",
+        description: "",
+        category: "station",
+        x: -1500, y: 70, z: -270
+    },
+    {
+        id: "shin_13",
+        name: "名称不明駅",
+        description: "",
+        category: "station",
+        x: -2150, y: 85, z: 0
+    },
+    {
+        id: "shin_14",
+        name: "熱帯雨林",
+        description: "",
+        category: "station",
+        x: -400, y: 75, z: 1850
+    },
+    {
+        id: "shin_15",
+        name: "トマト村",
+        description: "",
+        category: "station",
+        x: -926, y: 75, z: 1850
+    },
 
 ];
 
@@ -154,7 +281,125 @@ const railwayLines = [
             { x: 264, z: 107 },
             { x: 264, z: -44 },
         ]
-    }
+    },
+    {
+        id: "line_ss_2",
+        name: "しいあサバイバル線2",
+        category: "railway",
+        color: "#0b3b5d",
+        points: [
+            { x: 74, z: 107 },
+            { x: 74, z: 143 },
+            { x: 17, z: 250 },
+            { x: -148, z: 250 },
+        ]
+    },
+    {
+        id: "line_ss_3",
+        name: "しいあサバイバル線3",
+        category: "railway",
+        color: "#0b3b5d",
+        points: [
+            { x: 74, z: 143 },
+            { x: 74, z: 785 },
+            { x: 59, z: 800 },
+            { x: 0, z: 800 },
+
+            { x: -61, z: 800 },
+            { x: -70, z: 791 },
+            { x: -312, z: 791 },
+        ]
+    },
+    {
+        id: "line_shin_1",
+        name: "東海道新幹線",
+        category: "railway",
+        color: "#51a8f0",
+        points: [
+            { x: -2150, z: 0 },
+            { x: -1500, z: 0 },
+            { x: 0, z: 0 },
+            { x: 1800, z: 0 },
+        ]
+    },
+    {
+        id: "line_shin_2",
+        name: "ミニ新幹線",
+        category: "railway",
+        color: "#e5c337",
+        points: [
+            { x: 1805, z: -10 },
+            { x: 1850, z: -55 },
+            { x: 1850, z: -234 },
+        ]
+    },
+    {
+        id: "line_shin_3",
+        name: "要塞ローカル鉄道",
+        category: "railway",
+        color: "#e5c337",
+        points: [
+            { x: 1800, z: 0 },
+            { x: 1800, z: -257 },
+        ]
+    },
+    {
+        id: "line_shin_4",
+        name: "南海新幹線",
+        category: "railway",
+        color: "#e5c337",
+        points: [
+            { x: 0, z: 0 },
+            { x: 0, z: 800 },
+            { x: 0, z: 1650 },
+        ]
+    },
+    {
+        id: "line_shin_5",
+        name: "北陸新幹線",
+        category: "railway",
+        color: "#db7d99",
+        points: [
+            { x: 0, z: 0 },
+            { x: 0, z: -250 },
+            { x: 0, z: -1000 },
+            { x: 0, z: -1850 },
+            { x: 0, z: -2600 },
+        ]
+    },
+    {
+        id: "line_shin_6",
+        name: "北陸新幹線支線(仮)",
+        category: "railway",
+        color: "#db7d99",
+        points: [
+            { x: 0, z: -2600 },
+            { x: -1200, z: -2600 },
+        ]
+    },
+    {
+        id: "line_shin_7",
+        name: "東海道新幹線支線(仮)",
+        category: "railway",
+        color: "#51a8f0",
+        points: [
+            { x: -1500, z: 0 },
+            { x: -1500, z: -270 },
+        ]
+    },
+    {
+        id: "line_shin_8",
+        name: "南海新幹線支線(仮)",
+        category: "railway",
+        color: "#e5c337",
+        points: [
+            { x: 3, z: 1650 },
+            { x: 3, z: 1675 },
+            { x: -172, z: 1850 },
+            { x: -400, z: 1850 },
+            { x: -926, z: 1850 },
+        ]
+    },
 ];
 
 // 分類名
@@ -196,6 +441,8 @@ const TILE_HEIGHT = 1549;
 │ -2_0 │ -1_0 │  0_0 │  1_0 │  2_0 │
 ├──────┼──────┼──────┼──────┼──────┤
 │-2_-1 │-1_-1 │ 0_-1 │ 1_-1 │ 2_-1 │
+├──────┼──────┼──────┼──────┼──────┤
+│-2_-2 │-1_-2 │ 0_-2 │ 1_-2 │ 2_-2 │
 └──────┴──────┴──────┴──────┴──────┘
 */
 const mapTiles = [
@@ -221,7 +468,13 @@ const mapTiles = [
     "-1_-1.png",
     "0_-1.png",
     "1_-1.png",
-    "2_-1.png"
+    "2_-1.png",
+
+    "-2_-2.png",
+    "-1_-2.png",
+    "0_-2.png",
+    "1_-2.png",
+    "2_-2.png"
 ];
 
 
