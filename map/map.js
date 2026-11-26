@@ -1,3 +1,23 @@
+// 更新履歴 新しいものを上に
+const mapUpdates = [
+    {
+        date: "2026/11/27",
+        text: "路線の色を更新しました。"
+    },
+    {
+        date: "2026/11/26",
+        text: "更新履歴を追加しました。マップの拡張や更新の情報をここに掲載します。"
+    },
+];
+
+// クレジット
+const mapCredits = [
+    {
+        title: "-",
+        name: "-"
+    },
+];
+
 const facilities = [
     {
         id: "spawnpoint",
@@ -316,10 +336,19 @@ const railwayLines = [
         category: "railway",
         color: "#51a8f0",
         points: [
+            { x: 0, z: 0 },
+            { x: 1800, z: 0 },
+        ]
+    },
+    {
+        id: "line_shin_9",
+        name: "山陽新幹線",
+        category: "railway",
+        color: "#5aff19",
+        points: [
             { x: -2150, z: 0 },
             { x: -1500, z: 0 },
             { x: 0, z: 0 },
-            { x: 1800, z: 0 },
         ]
     },
     {
@@ -381,7 +410,7 @@ const railwayLines = [
         id: "line_shin_7",
         name: "東海道新幹線支線(仮)",
         category: "railway",
-        color: "#51a8f0",
+        color: "#5aff19",
         points: [
             { x: -1500, z: 0 },
             { x: -1500, z: -270 },
@@ -525,6 +554,11 @@ map.style.height =
 
 
 // 画像を配置
+// マップ画像名のラベル一覧
+const tileLabels = [];
+
+
+// 画像を配置
 tiles.forEach(tile => {
 
     const img = document.createElement("img");
@@ -532,13 +566,37 @@ tiles.forEach(tile => {
     img.src = tile.filename;
     img.className = "map-image";
 
-    img.style.left =
-        (tile.x - minTileX) * TILE_WIDTH + "px";
+    const tileLeft =
+        (tile.x - minTileX) * TILE_WIDTH;
 
-    img.style.top =
-        (maxTileZ - tile.z) * TILE_HEIGHT + "px";
+    const tileTop =
+        (maxTileZ - tile.z) * TILE_HEIGHT;
+
+    img.style.left = tileLeft + "px";
+    img.style.top = tileTop + "px";
 
     map.appendChild(img);
+
+
+    // マップ画像名のラベル
+    const label = document.createElement("div");
+
+    label.className = "map-tile-label";
+
+    label.textContent =
+        tile.filename.replace(/\.png$/i, "");
+
+    label.style.left =
+        (tileLeft + TILE_WIDTH / 2) + "px";
+
+    label.style.top =
+        (tileTop + TILE_HEIGHT / 2) + "px";
+
+    label.style.display = "none";
+
+    map.appendChild(label);
+
+    tileLabels.push(label);
 
 });
 
@@ -691,6 +749,14 @@ function updatePinScale() {
 
     });
 
+
+    // マップ画像名
+    tileLabels.forEach(label => {
+
+        label.style.transform =
+            `translate(-50%, -50%) scale(${1 / scale})`;
+
+    });
 }
 
 
@@ -1203,10 +1269,6 @@ document
     );
 
 
-/* 初期表示 */
-
-updateMap();
-
 /* ========================================
    施設一覧・表示フィルター
 ======================================== */
@@ -1606,3 +1668,288 @@ zoomOut.addEventListener(
 updateZoomLevel();
 
 
+
+/* ========================================
+   更新履歴・クレジットの表示
+======================================== */
+
+const mapUpdateList =
+    document.getElementById("map-update-list");
+
+const mapCreditList =
+    document.getElementById("map-credit-list");
+
+
+// 更新履歴
+mapUpdates.forEach(update => {
+
+    const li = document.createElement("li");
+
+    const date = document.createElement("time");
+    date.textContent = update.date;
+
+    const text = document.createElement("p");
+    text.textContent = update.text;
+
+    li.appendChild(date);
+    li.appendChild(text);
+
+    mapUpdateList.appendChild(li);
+
+});
+
+
+// クレジット
+mapCredits.forEach(credit => {
+
+    const li = document.createElement("li");
+
+    const title = document.createElement("span");
+    title.textContent = credit.title;
+
+    const name = document.createElement("span");
+    name.textContent = credit.name;
+
+    li.appendChild(title);
+    li.appendChild(name);
+
+    mapCreditList.appendChild(li);
+
+});
+
+
+/* ========================================
+   マップ情報メニュー
+======================================== */
+
+const mapInfoToggle =
+    document.getElementById("map-info-toggle");
+
+const mapInfoMenu =
+    document.getElementById("map-info-menu");
+
+const mapInfoOverlay =
+    document.getElementById("map-info-overlay");
+
+const mapInfoClose =
+    document.getElementById("map-info-close");
+
+const mapInfoTitle =
+    document.getElementById("map-info-title");
+
+
+// フライアウトの開閉
+mapInfoToggle.addEventListener("click", event => {
+
+    event.stopPropagation();
+
+    mapInfoMenu.hidden = !mapInfoMenu.hidden;
+
+    mapInfoToggle.setAttribute(
+        "aria-expanded",
+        String(!mapInfoMenu.hidden)
+    );
+
+});
+
+
+// 画面の切り替え
+const mapViews = {
+    updates: {
+        title: "更新履歴",
+        element: document.getElementById("map-view-updates")
+    },
+
+    credits: {
+        title: "クレジット",
+        element: document.getElementById("map-view-credits")
+    },
+
+    debug: {
+        title: "デバッグ",
+        element: document.getElementById("map-view-debug")
+    }
+};
+
+
+function showMapView(viewName) {
+
+    const selectedView = mapViews[viewName];
+
+    if (!selectedView) return;
+
+    // すべての画面を非表示
+    Object.values(mapViews).forEach(view => {
+        view.element.hidden = true;
+    });
+
+    // 選択した画面を表示
+    selectedView.element.hidden = false;
+
+    mapInfoTitle.textContent = selectedView.title;
+
+    // フライアウトを閉じる
+    mapInfoMenu.hidden = true;
+
+    mapInfoToggle.setAttribute("aria-expanded", "false");
+
+    // 画面を開く
+    mapInfoOverlay.hidden = false;
+
+    // デバッグ情報を更新
+    if (viewName === "debug") {
+        updateDebugInfo();
+    }
+
+}
+
+
+// メニュー項目のクリック
+mapInfoMenu.querySelectorAll("[data-map-view]").forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        showMapView(button.dataset.mapView);
+
+    });
+
+});
+
+/* ========================================
+   マップ画像名の表示切り替え
+======================================== */
+
+const tileNameToggle =
+    document.getElementById("debug-show-tile-names");
+
+
+tileNameToggle.addEventListener("change", () => {
+
+    tileLabels.forEach(label => {
+
+        label.style.display =
+            tileNameToggle.checked ? "flex" : "none";
+
+    });
+
+});
+/* ========================================
+   デバッグ情報
+======================================== */
+
+function updateDebugInfo() {
+
+    const pins =
+        map.querySelectorAll(".map-pin");
+
+    const visiblePins =
+        [...pins].filter(pin => !pin.hidden);
+
+    const images =
+        map.querySelectorAll(".map-image");
+
+
+    document.getElementById("debug-window-size").textContent =
+        `${window.innerWidth} × ${window.innerHeight}`;
+
+    document.getElementById("debug-container-size").textContent =
+        `${container.clientWidth} × ${container.clientHeight}`;
+
+    document.getElementById("debug-map-size").textContent =
+        `${map.offsetWidth} × ${map.offsetHeight}`;
+
+    document.getElementById("debug-scale").textContent =
+        `${(scale * 100).toFixed(1)}%`;
+
+    document.getElementById("debug-offset").textContent =
+        `X: ${offsetX.toFixed(1)} / Y: ${offsetY.toFixed(1)}`;
+
+    document.getElementById("debug-pin-count").textContent =
+        `${pins.length}`;
+
+    document.getElementById("debug-visible-pin-count").textContent =
+        `${visiblePins.length}`;
+
+    document.getElementById("debug-image-count").textContent =
+        `${images.length}`;
+
+}
+
+
+// デバッグ情報の手動更新
+document.getElementById("debug-refresh").addEventListener(
+    "click",
+    updateDebugInfo
+);
+
+
+// 画面サイズ変更時にも更新
+window.addEventListener("resize", updateDebugInfo);
+
+
+/* ========================================
+   閉じる処理
+======================================== */
+
+// ×ボタン
+mapInfoClose.addEventListener("click", () => {
+
+    mapInfoOverlay.hidden = true;
+
+});
+
+
+// 背景クリック
+mapInfoOverlay.addEventListener("click", event => {
+
+    if (event.target === mapInfoOverlay) {
+        mapInfoOverlay.hidden = true;
+    }
+
+});
+
+
+// メニュー外クリック
+document.addEventListener("click", event => {
+
+    if (!event.target.closest(".map-info-menu-wrap")) {
+
+        mapInfoMenu.hidden = true;
+
+        mapInfoToggle.setAttribute("aria-expanded", "false");
+
+    }
+
+});
+
+
+// Escapeキー
+document.addEventListener("keydown", event => {
+
+    if (event.key === "Escape") {
+
+        mapInfoMenu.hidden = true;
+
+        mapInfoToggle.setAttribute("aria-expanded", "false");
+
+        mapInfoOverlay.hidden = true;
+
+    }
+
+});
+
+
+
+/* 初期表示 */
+
+// 最小倍率に設定
+scale = getMinScale();
+
+// マップ全体を中央に配置
+centerMap();
+
+// マップを更新
+updateMap();
+
+// 倍率表示を更新
+updateZoomLevel();
