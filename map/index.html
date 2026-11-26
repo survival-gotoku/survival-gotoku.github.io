@@ -11,16 +11,22 @@
 
     <title>施設マップ - サバイバルが如く</title>
 
-    <link
+    <!-- <link
         rel="stylesheet"
         href="/style.css">
 
     <link
         rel="stylesheet"
-        href="/map/map.css">
+        href="/map/map.css"> -->
+    <link
+        rel="stylesheet"
+        href="../style.css">
+
+    <link
+        rel="stylesheet"
+        href="map.css">
 
 </head>
-
 
 <body>
 
@@ -114,18 +120,37 @@
              施設一覧
         ========================== -->
 
-        <div id="facility-menu" class="facility-menu">
-
-            <button id="facility-menu-toggle" class="facility-menu-toggle">
-                施設メニューを閉じる
-            </button>
+        <div class="facility-menu-container">
         
-            <div id="facility-filter" class="facility-filter"></div>
+            <!-- 施設メニュー -->
+            <div id="facility-menu" class="facility-menu">
+            
+                <button id="facility-menu-toggle" class="facility-menu-toggle">
+                    施設メニューを開く
+                </button>
+            
+                <div id="facility-filter" class="facility-filter"></div>
+            
+                <div id="facility-list" class="facility-list"></div>
+            
+            </div>
         
-            <div id="facility-list" class="facility-list"></div>
+            <!-- マップ情報メニュー -->
+            <div class="map-info-menu-wrap">
+            
+                <button id="map-info-toggle" class="map-info-toggle">
+                    <i data-lucide="ellipsis"></i>
+                </button>
+            
+                <div id="map-info-menu" class="map-info-menu" hidden>
+                    <button data-map-view="updates">更新履歴</button>
+                    <button data-map-view="credits">クレジット</button>
+                    <button data-map-view="debug">(デバッグ)</button>
+                </div>
+            
+            </div>
         
         </div>
-
         <!-- 施設情報 -->
 
         <div
@@ -153,6 +178,118 @@
         
         </div>
 
+        <!-- =========================
+             マップ情報
+        ========================== -->
+
+<!-- =========================
+     マップ情報画面
+========================== -->
+
+<div id="map-info-overlay" hidden>
+
+    <div id="map-info-panel">
+
+        <div class="map-info-header">
+
+            <h2 id="map-info-title">更新履歴</h2>
+
+            <button
+                id="map-info-close"
+                aria-label="閉じる">
+                ×
+            </button>
+
+        </div>
+
+
+        <!-- 更新履歴 -->
+        <section
+            id="map-view-updates"
+            class="map-info-view">
+
+            <ul id="map-update-list"></ul>
+
+        </section>
+
+
+        <!-- クレジット -->
+        <section
+            id="map-view-credits"
+            class="map-info-view"
+            hidden>
+
+            <ul id="map-credit-list"></ul>
+
+        </section>
+
+
+        <!-- デバッグ -->
+        <section
+            id="map-view-debug"
+            class="map-info-view"
+            hidden>
+
+            <div class="map-debug-list">
+
+                <div>
+                    <span>画面サイズ</span>
+                    <span id="debug-window-size">-</span>
+                </div>
+
+                <div>
+                    <span>マップ表示領域</span>
+                    <span id="debug-container-size">-</span>
+                </div>
+
+                <div>
+                    <span>マップサイズ</span>
+                    <span id="debug-map-size">-</span>
+                </div>
+
+                <div>
+                    <span>拡大率</span>
+                    <span id="debug-scale">-</span>
+                </div>
+
+                <div>
+                    <span>マップ位置</span>
+                    <span id="debug-offset">-</span>
+                </div>
+
+                <div>
+                    <span>施設ピン数</span>
+                    <span id="debug-pin-count">-</span>
+                </div>
+
+                <div>
+                    <span>表示中の施設ピン</span>
+                    <span id="debug-visible-pin-count">-</span>
+                </div>
+
+                <div>
+                    <span>マップ画像数</span>
+                    <span id="debug-image-count">-</span>
+                </div>
+                <div>
+                    <span>マップ画像名を表示</span>
+                    <label>
+                        <input type="checkbox" id="debug-show-tile-names">
+                        表示する
+                    </label>
+                </div>
+            </div>
+
+            <button id="debug-refresh">
+                情報を更新
+            </button>
+
+        </section>
+
+    </div>
+
+</div>
+
     </main>
 
 
@@ -178,7 +315,13 @@
     </footer> -->
 
 
+    <!-- <script src="/map/map.js"></script> -->
     <script src="map.js"></script>
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
 
 </body>
 
