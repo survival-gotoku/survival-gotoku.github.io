@@ -1,6 +1,10 @@
 // 更新履歴 新しいものを上に
 const mapUpdates = [
     {
+        date: "2026/11/29",
+        text: "駅の名前を更新しました。"
+    },
+    {
         date: "2026/11/27",
         text: "路線の色を更新しました。"
     },
@@ -13,8 +17,8 @@ const mapUpdates = [
 // クレジット
 const mapCredits = [
     {
-        title: "-",
-        name: "-"
+        title: "駅名提供",
+        name: "HITHUJIKUN"
     },
 ];
 
@@ -204,21 +208,21 @@ const facilities = [
     },
     {
         id: "shin_6",
-        name: "名称不明駅",
+        name: "りんご村",
         description: "",
         category: "station",
         x: 0, y: 100, z: -250
     },
     {
         id: "shin_7",
-        name: "名称不明駅",
+        name: "榛名",
         description: "",
         category: "station",
         x: 0, y: 100, z: -1000
     },
     {
         id: "shin_8",
-        name: "名称不明駅",
+        name: "白樺平原",
         description: "",
         category: "station",
         x: 0, y: 80, z: -1850
@@ -239,21 +243,21 @@ const facilities = [
     },
     {
         id: "shin_11",
-        name: "名称不明駅",
+        name: "松山",
         description: "",
         category: "station",
         x: -1500, y: 85, z: 0
     },
     {
         id: "shin_12",
-        name: "名称不明駅",
+        name: "平原村",
         description: "",
         category: "station",
         x: -1500, y: 70, z: -270
     },
     {
         id: "shin_13",
-        name: "名称不明駅",
+        name: "古代都市前",
         description: "",
         category: "station",
         x: -2150, y: 85, z: 0
